@@ -1,23 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
 
+import SignIn from "./components/SignIn";
+
+import Navbar from "./components/Navbar";
+import Scoreboard from "./components/Scoreboard";
+import Game from "./components/Game";
+
+import StartScreen from "./components/StartScreen";
+
+// ! Install Tailwind CSS
 function App() {
+  const [start, setStart] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  const logIn = () => {
+    setLoggedIn(true);
+    window.alert("Logged in");
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {/* show login screen */}
+      {!loggedIn && <SignIn logIn={logIn} />}
+      {/* if logged in, show the following */}
+      {loggedIn && (
+        <>
+          <Navbar />
+          {/* If the game is started, show scoreboard and game controller */}
+          {start && (
+            <>
+              <Scoreboard />
+              <Game />
+            </>
+          )}
+          {/* If the game is not started, show start screen */}
+          {!start && <StartScreen start={start} setStart={setStart} />}
+        </>
+      )}
     </div>
   );
 }
