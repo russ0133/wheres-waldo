@@ -20,6 +20,7 @@ function App() {
 
   return (
     <div className="App">
+      <div className="text-3xl font-bold underline">Hey</div>
       {/* show login screen */}
       {!loggedIn && <SignIn logIn={logIn} />}
       {/* if logged in, show the following */}
