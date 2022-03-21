@@ -1,21 +1,22 @@
 import React, { useRef, useState } from "react";
-import img from "../img/image1.jpg";
-const characters = [
-  { name: "Yoda", x: 53, y: 25 },
-  { name: "Test", x: 15, y: 22 },
-];
+import OutsideClickHandler from "react-outside-click-handler";
+import { characters } from "../utils/characters";
 
-// ? For handling clicks, check:
-// ? https://github.com/airbnb/react-outside-click-handler
-// ? https://github.com/KFig21/photo_tagging_app/blob/main/src/pages/Game.js
+import img from "../img/image1.jpg";
 
 function Game({ currentCharacter }) {
-  const [anchorElement, setAnchorElement] = useState(null);
   const [clicked, setClicked] = useState(false);
-  const clickRef = useRef(null);
-  function verifyCorrectClick(x, y, character) {
-    // Receives X and Y, checks with character X and Y
+  const [coords, setCoords] = useState(null);
+
+  const clickRef = useRef(null); // ? The DOM element that shows the target box.
+  const characterRef = useRef(null); // ? The DOM element that shows the character selection box.
+
+  function verifyCorrectClick(x, y, characterName) {
+    const found = characters.find(
+      (character) => character.name == characterName
+    );
   }
+
   function getClickCoordinates(e) {
     const xCoord = Math.round(
       (e.nativeEvent.offsetX / e.nativeEvent.target.offsetWidth) * 100
@@ -24,55 +25,76 @@ function Game({ currentCharacter }) {
       (e.nativeEvent.offsetY / e.nativeEvent.target.offsetHeight) * 100
     );
     const coords = { xCoord, yCoord };
+    setCoords(coords);
     return console.log(coords);
   }
 
-  const handleClick = async (event) => {
-    const click = await setClicked(true);
+  const displayTargetBox = (event) => {
     clickRef.current.classList.add(
       "border-8",
-      "border-teal-800",
+      "border-blue-900",
       "shadow-lg",
       "border-double",
       "absolute",
-      "rounded-lg"
+      "rounded-lg",
+      "w-12",
+      "h-12"
     );
     clickRef.current.style.left = event.pageX - 24 + "px";
     clickRef.current.style.top = event.pageY - 24 + "px";
-    clickRef.current.style.width = "48px";
-    clickRef.current.style.height = "48px";
   };
+  const displayCharacterList = (event) => {
+    characterRef.current.classList.add(
+      "shadow-lg",
+      "border-double",
+      "absolute",
+      "rounded-md",
+      "w-max",
+      "h-max"
+    );
+    characterRef.current.style.left = event.pageX + 32 + "px";
+    characterRef.current.style.top = event.pageY - 24 + "px";
+  };
+
+  const handleClick = async (event) => {
+    const click = await setClicked(true);
+    displayCharacterList(event);
+    displayTargetBox(event);
+    getClickCoordinates(event);
+  };
+
   return (
     <div className="cursor-crosshair">
-      {clicked && <div ref={clickRef}></div>}
-      <img src={img} onClick={handleClick} />
+      {clicked && (
+        <OutsideClickHandler
+          onOutsideClick={() => {
+            setClicked(false);
+            setCoords(null);
+          }}
+        >
+          <div ref={clickRef}></div>
+          <ul className="bg-neutral-200" ref={characterRef}>
+            {characters.map((character) => (
+              <li
+                onClick={() => {
+                  verifyCorrectClick(
+                    coords["xCoord"],
+                    coords["yCoord"],
+                    character.name
+                  );
+                }}
+                className="px-2 text-center font-bold hover:bg-blue-400 rounded-md noselect"
+              >
+                {character.name}
+              </li>
+            ))}
+          </ul>
+        </OutsideClickHandler>
+      )}
+      {!clicked && <div>Debug: Not clicked</div>}
+      <img draggable="false" src={img} onClick={handleClick} />
     </div>
   );
 }
 
 export default Game;
-
-{
-  /* <Menu
-id="simple-menu"
-anchorEl={anchorEl}
-keepMounted
-open={Boolean(anchorEl)}
-onClose={closeMenu}
-anchorOrigin={{
-  vertical: "center",
-  horizontal: "right",
-}}
-transformOrigin={{
-  vertical: "center",
-  horizontal: "left",
-}}
-getContentAnchorEl={null}
->
-{charsLeft.map((char) => (
-  <MenuItem data-id={char.id} key={char.id} onClick={closeMenu}>
-    {char.name}
-  </MenuItem>
-))}
-</Menu> */
-}

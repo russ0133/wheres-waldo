@@ -28,7 +28,7 @@ function App() {
 
   return (
     <div className="App flex flex-col items-center bg-slate-200 h-screen w-screen">
-      <div className="text-3xl font-bold underline">Hey</div>
+      <div className="text-3xl font-bold underline">The Game</div>
       {/* show login screen */}
       {loading && <div>Loading...</div>}
       {/* if logged in, show the following */}
