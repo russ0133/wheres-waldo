@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 
-import SignIn from "./components/SignIn";
 import Navbar from "./components/Navbar";
 import Scoreboard from "./components/Scoreboard";
 import StartScreen from "./components/StartScreen";
@@ -27,24 +26,23 @@ function App() {
   }, [user, loading]);
 
   return (
-    <div className="App flex flex-col items-center bg-slate-200 h-screen w-screen">
-      <div className="text-3xl font-bold underline">The Game</div>
-      {/* show login screen */}
+    <div className="App flex flex-col items-center justify-between bg-slate-200 h-screen w-screen p-4">
       {loading && <div>Loading...</div>}
-      {/* if logged in, show the following */}
       {user && (
         <>
-          <Navbar />
-          {/* If the game is started, show scoreboard and game controller */}
           {start && (
             <>
               <Scoreboard />
               <Game currentCharacter={character} />
             </>
           )}
-          {/* If the game is not started, show start screen */}
           {!start && <StartScreen start={start} setStart={setStart} />}
-          <div onClick={logout}>Log out</div>
+          <div
+            onClick={logout}
+            className="bg-red-500 text-neutral-200 cursor-pointer hover:bg-red-600 rounded-lg px-2"
+          >
+            Log out
+          </div>
         </>
       )}
     </div>

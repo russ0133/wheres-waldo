@@ -91,8 +91,13 @@ function Game({ currentCharacter }) {
           </ul>
         </OutsideClickHandler>
       )}
-      {!clicked && <div>Debug: Not clicked</div>}
-      <img draggable="false" src={img} onClick={handleClick} />
+
+      <img
+        draggable="false"
+        className="rounded-xl"
+        src={img}
+        onClick={handleClick}
+      />
     </div>
   );
 }
