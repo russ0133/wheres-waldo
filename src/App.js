@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from "react";
 
 import SignIn from "./components/SignIn";
-
 import Navbar from "./components/Navbar";
 import Scoreboard from "./components/Scoreboard";
 import StartScreen from "./components/StartScreen";
-
 import Game from "./components/Game";
-import { logout } from "./firebase";
-import { auth } from "./firebase";
+
+import { logout, auth } from "./firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
 
@@ -29,7 +27,7 @@ function App() {
   }, [user, loading]);
 
   return (
-    <div className="App bg-slate-200 h-screen w-screen">
+    <div className="App flex flex-col items-center bg-slate-200 h-screen w-screen">
       <div className="text-3xl font-bold underline">Hey</div>
       {/* show login screen */}
       {loading && <div>Loading...</div>}

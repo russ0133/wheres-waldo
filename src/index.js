@@ -5,7 +5,7 @@ import RouterSwitch from "./RouterSwitch";
 
 ReactDOM.render(
   <React.StrictMode>
-    <RouterSwitch />
+    <RouterSwitch className="bg-slate-200" />
   </React.StrictMode>,
   document.getElementById("root")
 );
