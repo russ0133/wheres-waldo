@@ -1,27 +1,45 @@
 import React from "react";
 
+import levelOne from "../img/image1.jpg";
+
 function StartScreen({ start, setStart }) {
   return (
     <>
-      <div className="text-4xl font-bold text-slate-600">Choose your Level</div>
-      <div className="flex flex-row h-full w-screen items-center align-bottom justify-evenly">
-        <div
-          className="w-72 h-3/4 bg-red-400 rounded-xl shadow-lg cursor-pointer transition ease-in-out hover:scale-105"
-          onClick={() => setStart(true)}
-        >
-          Image 1
+      <div className="StartScreen-Title text-4xl font-bold text-slate-600">
+        Choose your Level
+      </div>
+      <div className="Levels flex flex-row flex-wrap h-full w-screen items-center align-bottom justify-evenly">
+        <div className="Level-One flex flex-col items-center">
+          <div className="Level-One-Title text-xl font-bold text-slate-600 mb-3 underline">
+            Level One
+          </div>
+          <img
+            src={levelOne}
+            className="Level-One-Image w-72 h-3/4 bg-red-400 rounded-xl shadow-lg cursor-pointer transition ease-in-out hover:scale-105"
+            onClick={() => setStart(true)}
+          />
         </div>
-        <div
-          className="w-72 h-3/4 bg-blue-400 rounded-xl shadow-lg cursor-pointer transition ease-in-out hover:scale-105"
-          onClick={() => setStart(true)}
-        >
-          Image 2
+
+        <div className="Level-One flex flex-col items-center">
+          <div className="Level-One-Title text-xl font-bold text-slate-600 mb-3 underline">
+            Level Two
+          </div>
+          <img
+            src={levelOne}
+            className="Level-One-Image w-72 h-3/4 bg-red-400 rounded-xl shadow-lg cursor-pointer transition ease-in-out hover:scale-105"
+            onClick={() => setStart(true)}
+          />
         </div>
-        <div
-          className="w-72 h-3/4 bg-green-400 rounded-xl shadow-lg cursor-pointer transition ease-in-out hover:scale-105"
-          onClick={() => setStart(true)}
-        >
-          Image 3
+
+        <div className="Level-One flex flex-col items-center">
+          <div className="Level-One-Title text-xl font-bold text-slate-600 mb-3 underline">
+            Level Three
+          </div>
+          <img
+            src={levelOne}
+            className="Level-One-Image w-72 h-3/4 bg-red-400 rounded-xl shadow-lg cursor-pointer transition ease-in-out hover:scale-105"
+            onClick={() => setStart(true)}
+          />
         </div>
       </div>
     </>

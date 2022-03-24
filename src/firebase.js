@@ -17,6 +17,9 @@ import {
   collection,
   where,
   addDoc,
+  updateDoc,
+  getDoc,
+  setDoc,
 } from "firebase/firestore";
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -36,6 +39,39 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
+
+const updateBestScore = async (uuid, score) => {
+  /*   const userRef = query(
+    collection(db, "users"),
+    where("uid", "==", uuid)
+  ).getDoc(); */
+
+  const q = query(collection(db, "users"), where("uid", "==", uuid));
+
+  const querySnapshot = await getDocs(q);
+  querySnapshot.forEach(async (doc) => {
+    // doc.data() is never undefined for query doc snapshots
+    /* const update = await updateDoc(doc, { bestScore: 5 }); */
+    console.log(doc.data().bestScore);
+    if (score < doc.data().bestScore) {
+      const res = await updateDoc(doc.ref, { bestScore: score });
+    }
+    console.log(doc.id, " => ", doc.data());
+  });
+};
+
+const getUserDocFromUid = async (uuid) => {
+  const q = query(collection(db, "users"), where("uid", "==", uuid));
+  const querySnapshot = await getDocs(q);
+  let res = null;
+  querySnapshot.forEach(async (doc) => {
+    try {
+      return doc.ref;
+    } catch (err) {
+      console.log(err);
+    }
+  });
+};
 
 // Authentication Code
 const googleProvider = new GoogleAuthProvider();
@@ -104,9 +140,12 @@ const logout = () => {
 export {
   auth,
   db,
+  app,
   signInWithGoogle,
   logInWithEmailAndPassword,
   registerWithEmailAndPassword,
   sendPasswordReset,
   logout,
+  updateBestScore,
+  getUserDocFromUid,
 };
