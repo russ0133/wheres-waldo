@@ -4,8 +4,9 @@ import OutsideClickHandler from "react-outside-click-handler";
 import { characters } from "../utils/characters";
 
 import puzzleImage from "../img/image1.jpg";
+import isBetweenXDegrees from "../utils/isBetweenXDegrees";
 
-function Game({ currentCharacter, seconds, finishGame, setIsActive }) {
+function Game({ seconds, finishGame, setIsActive }) {
   const [clicked, setClicked] = useState(false);
   const [coords, setCoords] = useState(null);
 
@@ -20,6 +21,7 @@ function Game({ currentCharacter, seconds, finishGame, setIsActive }) {
     const found = characters.find(
       (character) => character.name == characterName
     );
+    if (isBetweenXDegrees(characterName, x, y)) console.log("right");
     found.isFound = true;
 
     if (isGameOver()) {
@@ -120,9 +122,20 @@ function Game({ currentCharacter, seconds, finishGame, setIsActive }) {
           onClick={handleClick}
         />
 
-        <ul className="fixed left-6 bottom-12 bg-neutral-700 text-white px-4 rounded-full text-xl shadow-md shadow-neutral-400">
-          <li>Yoda: not found</li>
-          <li>Yulia: found</li>
+        <ul className="fixed left-6 bottom-12   px-4 rounded-xl text-xl shadow-md shadow-neutral-400">
+          {characters.map((character, index) => (
+            <li
+              key={index}
+              className={
+                "px-2 text-center font-bold noselect text-gray-800 " +
+                (character.isFound ? "bg-green-500 " : "bg-red-300 ") +
+                (index == 0 ? "rounded-t-md " : " ") +
+                (index == characters.length - 1 ? "rounded-b-md" : "")
+              }
+            >
+              {character.name}
+            </li>
+          ))}
         </ul>
       </div>
     </div>

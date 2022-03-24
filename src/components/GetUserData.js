@@ -1,15 +1,7 @@
-import React, { useEffect, useState } from "react";
-import {
-  getFirestore,
-  query,
-  collection,
-  where,
-  getDocs,
-  Firestore,
-  doc,
-} from "firebase/firestore";
+import React from "react";
+import { doc } from "firebase/firestore";
 import { useDocumentData } from "react-firebase-hooks/firestore";
-import { db, getUserDocFromUid } from "../firebase";
+import { db } from "../firebase";
 
 function GetUserData({ uid }) {
   const [value, loading, error] = useDocumentData(doc(db, "users", uid), {
@@ -17,9 +9,12 @@ function GetUserData({ uid }) {
   });
   return (
     <div>
+      {loading && (
+        <p className="font-xl font-bold text-slate-600">Your best Score: ...</p>
+      )}
       {value && (
         <p className="font-xl font-bold text-slate-600">
-          Your best Score: {value.bestScore}
+          Your best Score: {value.bestScore} seconds.
         </p>
       )}
     </div>

@@ -1,6 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { toDate, format, differenceInMilliseconds } from "date-fns";
-import { updateBestScore } from "../firebase";
+import React, { useEffect } from "react";
 
 const Scoreboard = ({ seconds, setSeconds, isActive, tryUpdatingScore }) => {
   useEffect(() => {

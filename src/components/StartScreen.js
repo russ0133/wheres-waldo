@@ -19,7 +19,7 @@ function StartScreen({ start, setStart }) {
             onClick={() => setStart(true)}
           />
         </div>
-
+        {/* 
         <div className="Level-One flex flex-col items-center">
           <div className="Level-One-Title text-xl font-bold text-slate-600 mb-3 underline">
             Level Two
@@ -40,7 +40,7 @@ function StartScreen({ start, setStart }) {
             className="Level-One-Image w-72 h-3/4 bg-red-400 rounded-xl shadow-lg cursor-pointer transition ease-in-out hover:scale-105"
             onClick={() => setStart(true)}
           />
-        </div>
+        </div> */}
       </div>
     </>
   );
