@@ -21,19 +21,19 @@ function Game({ seconds, finishGame, setIsActive }) {
     const found = characters.find(
       (character) => character.name == characterName
     );
-    if (isBetweenXDegrees(characterName, x, y)) console.log("right");
-    found.isFound = true;
-
-    if (isGameOver()) {
-      alert(`You won the game in ${seconds} seconds.`);
-      finishGame();
-    } else alert(`Found character ${found.name} in ${seconds} seconds.`);
+    if (found.isFound) return;
+    if (isBetweenXDegrees(characterName, x, y, 5)) {
+      found.isFound = true;
+      if (isGameOver()) {
+        alert(`You won the game in ${seconds} seconds.`);
+        finishGame();
+      } else alert(`Found character ${found.name} in ${seconds} seconds.`);
+    } else alert("Try again!");
     // Verifies if x and y matches found.x and found.y within a deviation of degrees
   }
 
   function isGameOver() {
     const found = characters.filter((character) => character.isFound == false);
-    console.log(found);
     if (found.length == 0) return true;
     else return false;
   }
