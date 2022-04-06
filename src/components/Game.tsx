@@ -1,8 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { characters } from "../utils/characters";
 import isBetweenXDegrees from "../utils/isBetweenXDegrees";
-
-const OutsideClickHandler = require("react-outside-click-handler");
+import OutsideClickHandler from "react-outside-click-handler";
 const puzzleImage = require("../img/image1.jpg");
 
 type GameProps = {
@@ -12,7 +11,9 @@ type GameProps = {
 };
 
 const Game = ({ seconds, finishGame, setIsActive }: GameProps) => {
-  /*   const [clicked, setClicked] = useState(false);
+  const imgRef = useRef<HTMLImageElement>(null);
+
+  const [clicked, setClicked] = useState(false);
   const [coords, setCoords] = useState(null);
 
   const clickRef = useRef(null); // ? The DOM element that shows the target box.
@@ -43,12 +44,43 @@ const Game = ({ seconds, finishGame, setIsActive }: GameProps) => {
     else return false;
   }
 
-  function getClickCoordinates(e: Event) {
+  const displayTargetBox = (
+    event: React.MouseEvent<HTMLImageElement, MouseEvent>
+  ) => {
+    clickRef.current.classList =
+      "border-8 border-blue-900 shadow-lg border-double absolute rounded-lg w-12 h-12";
+
+    clickRef.current.style.left = event.pageX - 24 + "px";
+    clickRef.current.style.top = event.pageY - 24 + "px";
+  };
+
+  const displayCharacterList = (
+    event: React.MouseEvent<HTMLImageElement, MouseEvent>
+  ) => {
+    characterRef.current.classList =
+      "shadow-lg border-double absolute rounded-md w-max h-max bg-neutral-200 animate-bounce hover:animate-none";
+
+    characterRef.current.style.left = event.pageX + 32 + "px";
+    characterRef.current.style.top = event.pageY - 24 + "px";
+  };
+
+  const handleClick = async (
+    event: React.MouseEvent<HTMLImageElement, MouseEvent>
+  ) => {
+    const click = await setClicked(true);
+    displayCharacterList(event);
+    displayTargetBox(event);
+    getClickCoordinates(event);
+  };
+
+  function getClickCoordinates(
+    e: React.MouseEvent<HTMLImageElement, MouseEvent>
+  ) {
     const offsetX = e.nativeEvent.offsetX;
-    const offsetWidth = e.nativeEvent.target.offsetWidth;
+    const offsetWidth = imgRef.current.offsetWidth;
 
     const offsetY = e.nativeEvent.offsetY;
-    const offsetHeight = e.nativeEvent.target.offsetHeight;
+    const offsetHeight = imgRef.current.offsetHeight;
 
     const xCoord = Math.round((offsetX / offsetWidth) * 100);
     const yCoord = Math.round((offsetY / offsetHeight) * 100);
@@ -58,30 +90,6 @@ const Game = ({ seconds, finishGame, setIsActive }: GameProps) => {
 
     return console.log(coords);
   }
-
-  const displayTargetBox = (event: React.ChangeEvent<HTMLInputElement>) => {
-    clickRef.current.classList =
-      "border-8 border-blue-900 shadow-lg border-double absolute rounded-lg w-12 h-12";
-
-    clickRef.current.style.left = event.pageX - 24 + "px";
-    clickRef.current.style.top = event.pageY - 24 + "px";
-  };
-
-  const displayCharacterList = (event: React.ChangeEvent<HTMLInputElement>) => {
-    characterRef.current.classList =
-      "shadow-lg border-double absolute rounded-md w-max h-max bg-neutral-200 animate-bounce hover:animate-none";
-
-    characterRef.current.style.left = event.pageX + 32 + "px";
-    characterRef.current.style.top = event.pageY - 24 + "px";
-  };
-
-  const handleClick = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const click = await setClicked(true);
-    displayCharacterList(event);
-    displayTargetBox(event);
-    getClickCoordinates(event);
-  };
-
   return (
     <div className="cursor-crosshair">
       {clicked && (
@@ -125,6 +133,7 @@ const Game = ({ seconds, finishGame, setIsActive }: GameProps) => {
           className="rounded-xl mt-5"
           src={puzzleImage}
           onClick={handleClick}
+          ref={imgRef}
         />
 
         <ul className="fixed left-6 bottom-12   px-4 rounded-xl text-xl shadow-md shadow-neutral-400">
@@ -144,7 +153,7 @@ const Game = ({ seconds, finishGame, setIsActive }: GameProps) => {
         </ul>
       </div>
     </div>
-  ); */
+  );
 };
 
 export default Game;

@@ -11,6 +11,8 @@ import GetUserData from "./components/GetUserData";
 
 import { limit, query, collection, where, getDocs } from "firebase/firestore";
 import { characters } from "./utils/characters";
+import Game from "./components/Game";
+import Scoreboard from "./components/Scoreboard";
 
 const App: React.FC = () => {
   // StartScreen props
@@ -52,7 +54,7 @@ const App: React.FC = () => {
       {loading && <div>Loading...</div>}
       {user && (
         <>
-          {/*           {start && (
+          {start && (
             <>
               <Scoreboard
                 seconds={seconds}
@@ -65,19 +67,19 @@ const App: React.FC = () => {
                 finishGame={finishGame}
               />
             </>
-          )} */}
+          )}
           {!start && (
             <>
               {uid != 0 && <GetUserData uid={uid} />}
               <StartScreen setStart={setStart} />
             </>
           )}
-          {/*           <div
+          <div
             onClick={logout}
             className="bg-red-500 text-neutral-200 cursor-pointer hover:bg-red-600 rounded-lg mt-4 px-2"
           >
             Log out
-          </div> */}
+          </div>
         </>
       )}
     </div>

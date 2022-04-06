@@ -12,7 +12,7 @@ const Scoreboard: React.FC<ScoreboardNode> = ({
   isActive,
 }) => {
   useEffect(() => {
-    let interval: ReturnType<typeof setInterval> = null;
+    let interval: NodeJS.Timer = null;
     if (isActive) {
       interval = setInterval(() => {
         setSeconds(seconds + 1);
