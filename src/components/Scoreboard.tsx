@@ -1,11 +1,21 @@
 import React, { useEffect } from "react";
 
-const Scoreboard = ({ seconds, setSeconds, isActive, tryUpdatingScore }) => {
+interface ScoreboardNode {
+  seconds: number;
+  setSeconds: (seconds: number) => void;
+  isActive: boolean;
+}
+
+const Scoreboard: React.FC<ScoreboardNode> = ({
+  seconds,
+  setSeconds,
+  isActive,
+}) => {
   useEffect(() => {
-    let interval = null;
+    let interval: NodeJS.Timer = null;
     if (isActive) {
       interval = setInterval(() => {
-        setSeconds((seconds) => seconds + 1);
+        setSeconds(seconds + 1);
       }, 1000);
     } else if (!isActive && seconds !== 0) {
       clearInterval(interval);

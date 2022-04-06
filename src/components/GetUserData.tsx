@@ -3,7 +3,10 @@ import { doc } from "firebase/firestore";
 import { useDocumentData } from "react-firebase-hooks/firestore";
 import { db } from "../firebase";
 
-function GetUserData({ uid }) {
+interface GetUserDataNode {
+  uid: string;
+}
+const GetUserData: React.FC<GetUserDataNode> = ({ uid }) => {
   const [value, loading, error] = useDocumentData(doc(db, "users", uid), {
     snapshotListenOptions: { includeMetadataChanges: true },
   });
@@ -19,6 +22,6 @@ function GetUserData({ uid }) {
       )}
     </div>
   );
-}
+};
 
 export default GetUserData;
