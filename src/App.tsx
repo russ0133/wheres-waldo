@@ -22,7 +22,7 @@ const App: React.FC = () => {
 
   // Authentication and Routers
   const [user, loading] = useAuthState(auth);
-  const [uid, setUid] = useState<string | 0>(0);
+  const [uid, setUid] = useState<string | 1>(0);
 
   const navigate = useNavigate();
 
