@@ -1,11 +1,10 @@
 import React from "react";
 const levelOne = require("../img/image1.jpg");
 interface StartScreenNode {
-  start: boolean;
   setStart: (value: boolean) => void;
 }
 
-const StartScreen: React.FC<StartScreenNode> = ({ start, setStart }) => {
+const StartScreen: React.FC<StartScreenNode> = ({ setStart }) => {
   return (
     <>
       <div className="StartScreen-Title text-4xl font-bold text-slate-600">
