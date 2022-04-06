@@ -7,7 +7,8 @@ import {
   signInWithGoogle,
 } from "../firebase";
 import "../style/Register.css";
-function Register() {
+
+const Register: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -63,5 +64,5 @@ function Register() {
       </div>
     </div>
   );
-}
+};
 export default Register;

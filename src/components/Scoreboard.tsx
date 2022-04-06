@@ -1,9 +1,4 @@
 import React, { useEffect } from "react";
-type ScoreboardProps = {
-  seconds: number;
-  setSeconds: void;
-  isActive: boolean;
-};
 
 interface ScoreboardNode {
   seconds: number;
