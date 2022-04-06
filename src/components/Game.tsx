@@ -1,13 +1,18 @@
 import React, { useEffect, useRef, useState } from "react";
-import OutsideClickHandler from "react-outside-click-handler";
-
 import { characters } from "../utils/characters";
-
-import puzzleImage from "../img/image1.jpg";
 import isBetweenXDegrees from "../utils/isBetweenXDegrees";
 
-function Game({ seconds, finishGame, setIsActive }) {
-  const [clicked, setClicked] = useState(false);
+const OutsideClickHandler = require("react-outside-click-handler");
+const puzzleImage = require("../img/image1.jpg");
+
+type GameProps = {
+  seconds: number;
+  finishGame: () => void;
+  setIsActive: (value: boolean) => void;
+};
+
+const Game = ({ seconds, finishGame, setIsActive }: GameProps) => {
+  /*   const [clicked, setClicked] = useState(false);
   const [coords, setCoords] = useState(null);
 
   const clickRef = useRef(null); // ? The DOM element that shows the target box.
@@ -17,7 +22,7 @@ function Game({ seconds, finishGame, setIsActive }) {
     setIsActive(true);
   }, []);
 
-  function verifyCorrectClick(x, y, characterName) {
+  function verifyCorrectClick(x: number, y: number, characterName: string) {
     const found = characters.find(
       (character) => character.name == characterName
     );
@@ -38,7 +43,7 @@ function Game({ seconds, finishGame, setIsActive }) {
     else return false;
   }
 
-  function getClickCoordinates(e) {
+  function getClickCoordinates(e: Event) {
     const offsetX = e.nativeEvent.offsetX;
     const offsetWidth = e.nativeEvent.target.offsetWidth;
 
@@ -54,7 +59,7 @@ function Game({ seconds, finishGame, setIsActive }) {
     return console.log(coords);
   }
 
-  const displayTargetBox = (event) => {
+  const displayTargetBox = (event: React.ChangeEvent<HTMLInputElement>) => {
     clickRef.current.classList =
       "border-8 border-blue-900 shadow-lg border-double absolute rounded-lg w-12 h-12";
 
@@ -62,7 +67,7 @@ function Game({ seconds, finishGame, setIsActive }) {
     clickRef.current.style.top = event.pageY - 24 + "px";
   };
 
-  const displayCharacterList = (event) => {
+  const displayCharacterList = (event: React.ChangeEvent<HTMLInputElement>) => {
     characterRef.current.classList =
       "shadow-lg border-double absolute rounded-md w-max h-max bg-neutral-200 animate-bounce hover:animate-none";
 
@@ -70,7 +75,7 @@ function Game({ seconds, finishGame, setIsActive }) {
     characterRef.current.style.top = event.pageY - 24 + "px";
   };
 
-  const handleClick = async (event) => {
+  const handleClick = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const click = await setClicked(true);
     displayCharacterList(event);
     displayTargetBox(event);
@@ -139,7 +144,7 @@ function Game({ seconds, finishGame, setIsActive }) {
         </ul>
       </div>
     </div>
-  );
-}
+  ); */
+};
 
 export default Game;

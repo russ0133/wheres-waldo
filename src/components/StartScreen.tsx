@@ -1,8 +1,11 @@
 import React from "react";
+const levelOne = require("../img/image1.jpg");
+interface StartScreenNode {
+  start: boolean;
+  setStart: (value: boolean) => void;
+}
 
-import levelOne from "../img/image1.jpg";
-
-function StartScreen({ start, setStart }) {
+const StartScreen: React.FC<StartScreenNode> = ({ start, setStart }) => {
   return (
     <>
       <div className="StartScreen-Title text-4xl font-bold text-slate-600">
@@ -47,6 +50,6 @@ function StartScreen({ start, setStart }) {
   {
     /* <div onClick={() => setStart(true)}>StartScreen</div>; */
   }
-}
+};
 
 export default StartScreen;

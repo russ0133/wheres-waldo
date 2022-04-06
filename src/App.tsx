@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 
-import Scoreboard from "./components/Scoreboard";
+/* import Scoreboard from "./components/Scoreboard"; */
 import StartScreen from "./components/StartScreen";
-import Game from "./components/Game";
+/* import Game from "./components/Game"; */
 
 import { logout, auth, updateBestScore, db } from "./firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -12,7 +12,7 @@ import GetUserData from "./components/GetUserData";
 import { limit, query, collection, where, getDocs } from "firebase/firestore";
 import { characters } from "./utils/characters";
 
-function App() {
+const App: React.FC = () => {
   // StartScreen props
   const [start, setStart] = useState(false);
 
@@ -22,20 +22,16 @@ function App() {
 
   // Authentication and Routers
   const [user, loading] = useAuthState(auth);
-  const navigate = useNavigate();
+  const [uid, setUid] = useState<string | 0>(0);
 
-  const [uid, setUid] = useState(0);
+  const navigate = useNavigate();
 
   function finishGame() {
     characters.forEach((character) => (character.isFound = false));
-    tryUpdatingScore(seconds);
+    updateBestScore(user.uid, seconds);
     setStart(false);
     setIsActive(false);
     setSeconds(0);
-  }
-  function tryUpdatingScore(score) {
-    updateBestScore(user.uid, score);
-    console.log(user);
   }
 
   async function findUserDocument() {
@@ -56,13 +52,12 @@ function App() {
       {loading && <div>Loading...</div>}
       {user && (
         <>
-          {start && (
+          {/*           {start && (
             <>
               <Scoreboard
                 seconds={seconds}
                 setSeconds={setSeconds}
                 isActive={isActive}
-                tryUpdatingScore={tryUpdatingScore}
               />
               <Game
                 seconds={seconds}
@@ -70,23 +65,23 @@ function App() {
                 finishGame={finishGame}
               />
             </>
-          )}
+          )} */}
           {!start && (
             <>
               {uid != 0 && <GetUserData uid={uid} />}
               <StartScreen start={start} setStart={setStart} />
             </>
           )}
-          <div
+          {/*           <div
             onClick={logout}
             className="bg-red-500 text-neutral-200 cursor-pointer hover:bg-red-600 rounded-lg mt-4 px-2"
           >
             Log out
-          </div>
+          </div> */}
         </>
       )}
     </div>
   );
-}
+};
 
 export default App;
